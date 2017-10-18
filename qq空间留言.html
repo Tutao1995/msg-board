@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <style>
+        *{margin:0;padding:0}
+        body{padding:30px}
+        #box{width:300px;height:200px;border:1px solid #ccc;margin-top:20px}
+    </style>
+</head>
+<body>
+<input type="text" id="txt"/><button id="btn" onclick="myClick()">提交</button>
+<div id="box"></div>
+<script>
+    var oTxt=document.getElementById("txt");
+    var oBox=document.getElementById("box");
+    var oBtn=document.getElementById("btn");
+    oBtn.onclick=function myClick(){
+        var val=oTxt.value;
+        oTxt.value="";
+        if(val==""||val==null ){alert("请输入")}
+        if(val){//词语过滤
+            var reg=/傻.{0,4}逼|垃.{0,4}圾|妈.{0,4}比/mg;
+            val=val.replace(reg,function(x){
+                var str="";
+                for(var i=0;i< x.length;i++){
+                    str+="*";
+                }
+                return str;
+            });
+            var time=new Date();
+            var h=time.getHours();
+            var min=time.getMinutes();
+            var s=time.getSeconds();
+            h=h<10?"0"+h:h;
+            min=min<10?"0"+min:min;
+            s=s<10?"0"+s:s;
+            var t=h+":"+min+":"+s;
+            var oP=document.createElement("p");
+            oP.innerHTML=val+"<span style='float:right;color:red;'>"+t+"</span>";
+            oBox.appendChild(oP);
+        }
+    };
+    oTxt.onkeyup=function(e){
+        var kCode= e.keyCode;
+        if(kCode==13){
+            var val=this.value;
+            this.value="";
+            if(val==""||val==null ){alert("请输入")}
+            if(val){//词语过滤
+                var reg=/傻.{0,4}逼|垃.{0,4}圾|妈.{0,4}比/mg;
+                val=val.replace(reg,function(x){
+                    var str="";
+                    for(var i=0;i< x.length;i++){
+                        str+="*";
+                    }
+                    return str;
+                });
+                var time=new Date();
+                var h=time.getHours();
+                var min=time.getMinutes();
+                var s=time.getSeconds();
+                h=h<10?"0"+h:h;
+                min=min<10?"0"+min:min;
+                s=s<10?"0"+s:s;
+                var t=h+":"+min+":"+s;
+                var oP=document.createElement("p");
+                oP.innerHTML=val+"<span style='float:right;color:red;'>"+t+"</span>";
+                oBox.appendChild(oP);
+            }
+        }
+    }
+</script>
+</body>
+</html>
